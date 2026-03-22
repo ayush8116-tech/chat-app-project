@@ -12,18 +12,26 @@ const updateData = (message, data) => {
 };
 
 const sendMessage = (messages) => {
-  const message = document.querySelector("#message-input").value;
-  const updatedMessages = updateData(message, messages);
+  const messageInput = document.querySelector("#message-input");
+  const message = messageInput.value
+  
+  const updatedMessages = message === "" ? messages : updateData(message, messages);
+  
+  messageInput.value = "";
 
   const chatBox = document.querySelector(".chat-box");
   renderMessages(updatedMessages, chatBox);
+
+  messageInput.focus();
 };
 
 const main = () => {
   const chatContainer = document.querySelector(".chat-container");
 
   chatContainer.addEventListener("click", (event) => {
-    const target = event.target.closest(".action")?.name;
+    const targetElement = event.target.closest(".action")
+    const target = targetElement?.name;
+
     if(target === "send") {
       sendMessage(messages);
     }
