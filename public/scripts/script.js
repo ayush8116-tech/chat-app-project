@@ -1,54 +1,33 @@
-import { createFragment, ELEMENT } from "./generate_fragment.js";
+import { renderMessages } from "./render.js";
 
-const { ARTICLE } = ELEMENT;
+const messages = [];
 
-const messages = [
-  { time: "10:30", message: "hello 7", source: "sender" },
-  { time: "10:30", message: "hello 6", source: "sender" },
-  { time: "10:30", message: "hello 5", source: "sender" },
-  { time: "10:30", message: "hello 4", source: "sender" },
-  { time: "10:30", message: "hello 3", source: "sender" },
-  { time: "10:30", message: "hello 2", source: "sender" },
-  { time: "10:30", message: "hello 1", source: "sender" },
-  { time: "10:30", message: "hello 0", source: "sender" },
-  { time: "10:30", message: "hello ", source: "sender" },
-  { time: "10:30", message: "hello ", source: "sender" },
-  { time: "10:30", message: "hello ", source: "sender" },
-  { time: "10:30", message: "hello ", source: "sender" },
-  { time: "10:30", message: "hello ", source: "sender" },
-  { time: "10:30", message: "hello ", source: "sender" },
-  { time: "10:30", message: "hello ", source: "sender" },
-  { time: "10:30", message: "hello ", source: "sender" },
-  { time: "10:30", message: "hello ", source: "sender" },
-];
+const updateData = (message, data) => {
+  const messages = [...data];
 
-const createMessageFragment = ({ message }) => {
-  const messageStructure = [
-    ARTICLE,
-    { class: "message" },
-    message,
-  ];
+  const newMessage = { time: "6:00", message, source: "you" };
+  messages.push(newMessage);
 
-  const fragment = createFragment(messageStructure);
-  return fragment;
+  return messages;
 };
 
-const renderMessages = (messages, container) => {
-  const messageFragments = messages.map(createMessageFragment);
-  
-  container.prepend(...messageFragments);
-}
+const sendMessage = (messages) => {
+  const message = document.querySelector("#message-input").value;
+  const updatedMessages = updateData(message, messages);
+
+  const chatBox = document.querySelector(".chat-box");
+  renderMessages(updatedMessages, chatBox);
+};
 
 const main = () => {
   const chatContainer = document.querySelector(".chat-container");
-  
+
   chatContainer.addEventListener("click", (event) => {
     const target = event.target.closest(".action")?.name;
-    console.log(target);
-  })
-  
-  const chatBox = document.querySelector(".chat-box");
-  renderMessages(messages, chatBox);
+    if(target === "send") {
+      sendMessage(messages);
+    }
+  });
 };
 
 globalThis.onload = main;
