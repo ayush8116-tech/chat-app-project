@@ -40,4 +40,4 @@ const main = () => {
   });
 };
 
-globalThis.onload = main;
+window.onload = main;
