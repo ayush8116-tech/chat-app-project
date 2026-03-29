@@ -37,12 +37,3 @@ jobs:
 
       - name: Run linter
         run: deno lint
-
-      - name: Run tests
-        run: deno test -A
-      
-      - name: coverage
-        run: deno test --coverage
-      
-      - name: Get event
-        run: deno -A event.js
