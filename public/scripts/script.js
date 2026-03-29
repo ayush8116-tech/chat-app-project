@@ -13,10 +13,12 @@ const updateData = (message, data) => {
 
 const sendMessage = (messages) => {
   const messageInput = document.querySelector("#message-input");
-  const message = messageInput.value
-  
-  const updatedMessages = message === "" ? messages : updateData(message, messages);
-  
+  const message = messageInput.value;
+
+  const updatedMessages = message === ""
+    ? messages
+    : updateData(message, messages);
+
   messageInput.value = "";
 
   const chatBox = document.querySelector(".chat-box");
@@ -29,13 +31,13 @@ const main = () => {
   const chatContainer = document.querySelector(".chat-container");
 
   chatContainer.addEventListener("click", (event) => {
-    const targetElement = event.target.closest(".action")
+    const targetElement = event.target.closest(".action");
     const target = targetElement?.name;
 
-    if(target === "send") {
+    if (target === "send") {
       sendMessage(messages);
     }
   });
 };
 
-window.onload = main;
+globalThis.onload = main;
