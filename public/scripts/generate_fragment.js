@@ -5,10 +5,7 @@ export const createFragment = ([tag, attributes, ...content]) => {
     element.setAttribute(key, attributes[key]);
   }
 
-  if (content[0] && !Array.isArray(content[0])) {
-    element.innerText = content[0].toString();
-    return element;
-  }
+  if (content[0] && !Array.isArray(content[0])) { element.innerText = content[0].toString(); return element;  }
 
   const children = content.map(createFragment);
   element.append(...children);
